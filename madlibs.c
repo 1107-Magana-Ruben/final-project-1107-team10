@@ -13,9 +13,9 @@
 
 //Prototypes
 void explain_game_2user();
-void scanFile(FILE *fp, char outline[][100], int *line_count, int *word_limit);
+void scanFile(FILE *fp, char outline[][100], int *line_count, int *word_count);
 void scanWords(char words[][WORD_CAPACITY], int word_count, char outline[][100]);
-void printMadlib(char outline[][100], char words[][WORD_CAPACITY], int LINE_COUNT, int WORD_COUNT);
+void printMadlib(char outline[][100], char words[][WORD_CAPACITY], int line_count, int word_count);
 
 
 
@@ -34,16 +34,29 @@ int line_count;
 
 	explain_game_2user();
 
-		scanf("%d",&users_choice_4file);	
+			
 
-FILE *input = NULL;
+FILE *input;
+FILE *input2;
 	
 		if(users_choice_4file == 1){
 			FILE *input = fopen(FILE_NAME, "r");
+			
+		scanFile(input, outline, &line_count, &word_count);
+		fclose(input);
+		scanWords(words, word_count, outline);
+
+		printMadlib(outline, words, line_count, word_count);
 		}		
 		
 			else if(users_choice_4file == 2){
 					FILE *input2 = fopen(FILE_NAME2, "r");
+			
+			scanFile(input, outline, &line_count, &word_count);
+			fclose(input2);
+			scanWords(words, word_count, outline);
+
+			printMadlib(outline, words, line_count, word_count);
 			}
 			
 				else if (input == NULL){
@@ -56,12 +69,7 @@ FILE *input = NULL;
 								return 0;
 	 				  }       
 	   
-scanFile(input, outline, &line_count, &word_count);
-fclose(input);
 
-scanWords(words, word_count, outline);
-
-printMadlib(outline, words, line_count, word_count);
 
 	return 0;
 }
@@ -71,11 +79,15 @@ printMadlib(outline, words, line_count, word_count);
 // For better organization this function provides all instructions needed for the user to understand the game
 
 void explain_game_2user(){
+
+int users_choice_4file;
 	printf("\nWelcome to the madlibs game!\n");
 	printf("Here's how the game works.\n");
 	printf("I'll ask you to enter either a NOUN, VERB, or ADJECTIVE of your chosing.\n");
 	printf("Then i'll display your creation.\n");
 	printf("\nEnter either 1 or 2 to begin the game!\n");
+	
+	scanf("%d",&users_choice_4file);
 }
 
 //char and int
@@ -106,7 +118,7 @@ void scanWords(char words[][WORD_CAPACITY], int word_count, char outline[][100])
 		}
 	}	
 }			 
-void printMadlib(char outline[][100], char words[][WORD_CAPACITY], int LINE_COUNT, int WORD_COUNT){
+void printMadlib(char outline[][100], char words[][WORD_CAPACITY], int line_count, int word_count){
 
 int index=0;
 	for(int i = 0; i < 0; i++){
